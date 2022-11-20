@@ -26,10 +26,19 @@ document.addEventListener("click", (event) => {
       event.target.tagName.toLowerCase() === "i"
         ? event.target
         : event.target.children[0];
+    const nodeParent =
+      event.target.tagName.toLowerCase() === "button"
+        ? event.target.parentNode
+        : event.target.parentNode.parentNode;
+    const colorParent = nodeParent.children[0].innerHTML;
     node.classList.toggle("fa-lock-open");
     node.classList.toggle("fa-lock");
+    node.classList.contains("fa-lock")
+      ? Notiflix.Notify.warning(`Block color ${colorParent}!`)
+      : Notiflix.Notify.success(`Unlock color ${colorParent}!`);
   } else if (type === "copy") {
-    copyToClickboard(event.target.textContents);
+    Notiflix.Notify.success(`Color ${event.target.innerHTML} copied!`);
+    copyToClickboard(event.target.innerHTML);
   }
 });
 
